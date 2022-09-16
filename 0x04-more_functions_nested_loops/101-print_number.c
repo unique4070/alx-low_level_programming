@@ -1,40 +1,21 @@
-#include <stdio.h>
-
+#include "holberton.h"
 /**
- * main - Fizz Buzz code
- *
- * Return: void
+ * print_number - prints numbers
+ * @n: number to be printed
+ * Return:void
  */
 
-int main(void)
+void print_number(int n)
 {
-	int i = 1;
+	unsigned int x;
 
-	while (i <= 100)
+	x = n;
+	if (n < 0)
 	{
-		if (i % 3 == 0 && i % 5 == 0)
-		{
-			printf("FizzBuzz");
-		}
-		else if (i % 3 == 0)
-		{
-			printf("Fizz");
-		}
-		else if (i % 5 == 0)
-		{
-			printf("Buzz");
-		}
-		else
-		{
-			printf("%i", i);
-		}
-		if (i != 100)
-		{
-			putchar(' ');
-		}
-
-		i++;
+		_putchar(45);
+		x = -n;
 	}
-	putchar('\n');
-	return (0);
+	if (x / 10)
+		print_number(x / 10);
+	_putchar((x % 10) + '0');
 }
