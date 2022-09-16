@@ -1,97 +1,40 @@
-#include "main.h"
-
-
+#include <stdio.h>
 
 /**
+ * main - Fizz Buzz code
+ *
+ * Return: void
+ */
 
- * print_number - prints an integer
-
- * @n: random integer
-
- *Return: void
-
- **/
-
-
-
-void print_number(int n)
-
+int main(void)
 {
+	int i = 1;
 
-	char ld, cr;
-
-	int r;
-
-	int ct = 0;
-
-
-
-	if (n < 0)
-
+	while (i <= 100)
 	{
-
-		_putchar ('-');
-
-		ld = (char)('0' - (n % 10));
-
-		n = n / -10;
-
-	}
-
-
-
-		else
-
+		if (i % 3 == 0 && i % 5 == 0)
 		{
+			printf("FizzBuzz");
+		}
+		else if (i % 3 == 0)
+		{
+			printf("Fizz");
+		}
+		else if (i % 5 == 0)
+		{
+			printf("Buzz");
+		}
+		else
+		{
+			printf("%i", i);
+		}
+		if (i != 100)
+		{
+			putchar(' ');
+		}
 
-			ld = (char)((n % 10) + '0');
-
-		n = n / 10;
-
+		i++;
 	}
-
-
-
-	r = 0;
-
-	while (n > 0)
-
-	{
-
-		r = r * 10 + (n % 10);
-
-		n = n / 10;
-
-		ct++;
-
-	}
-
-
-
-	while (r > 0)
-
-	{
-
-		cr = (char)((r % 10) + '0');
-
-		_putchar(cr);
-
-		r = r / 10;
-
-		ct--;
-
-	}
-
-	while (ct != 0)
-
-	{
-
-		_putchar('0');
-
-			ct--;
-
-	}
-
-	_putchar(ld);
-
+	putchar('\n');
+	return (0);
 }
