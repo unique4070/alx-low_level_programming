@@ -1,1 +1,1 @@
-this is an empty repo
+This is my attempt at pointers 
