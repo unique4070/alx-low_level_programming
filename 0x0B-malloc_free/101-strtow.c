@@ -1,57 +1,100 @@
 #include "main.h"
 
 /**
-*len - returns length of str
-*@str: string counted
-*Return: returns the length
-*/
+ * len - returns length of str
+ *@str: string to be counted
+ *
+ * Return: length of the string
+ */
+
 int len(char *str)
 {
-		int len = 0;
+	int len = 0;
 
-		if (str != NULL)
-		{
-			while (str[len])
-				len++;
-		}
+	if (str != NULL)
+	{
+		while (str[len])
+			len++;
+	}
 	return (len);
 }
 
 /**
-* argstostr - a function that concatenates all the arguments of your program
-*@ac: count of args passed to the function
-*@av:array of arguments
-*
-*Return: pointer to the new string
-*/
-
-char *argstostr(int ac, char **av)
+ * num_words - counts the number of words in str
+ *@str: string to be used
+ *
+ *Return: number of words
+ */
+int num_words(char *str)
 {
-		char *new_string = NULL;
-		int k = 0, i = ac, j, sum = 0, temp = 0;
+	int i = 0, words = 0;
 
-		if (ac == 0 || av == NULL)
-			return (NULL);
-
-		while (ac--)
-			sum += (len(av[ac]) + 1);
-		new_string = (char *) malloc(sum + 1);
-
-		if (new_string != NULL)
+	while (i <= len(str))
+	{
+		if ((str[i] != ' ') && (str[i] != '\0'))
 		{
-			while (k < i)
-			{
-				for (j = 0; av[k][j] != '\0'; j++)
-					new_string[j + temp] = av[k][j];
-				new_string[temp + j] = '\n';
-				temp += (j + 1);
-				k++;
-			}
-			new_string[temp] = '\0';
+			i++;
+		}
+		else if (((str[i] == ' ') || (str[i] == '\0')) && i && (str[i - 1] != ' '))
+		{
+			words += 1;
+			i++;
 		}
 		else
 		{
-			return (NULL);
+			i++;
 		}
-		return (new_string);
+	}
+	return (words);
+}
+
+/**
+ *strtow - splits a stirng into words
+ *@str: string to be splitted
+ *
+ *Return: pointer to the array of splitted words
+ */
+
+char **strtow(char *str)
+{
+	char **split;
+	int i, j = 0, temp = 0, size = 0, words = num_words(str);
+
+	if (words == 0)
+		return (NULL);
+	split = (char **)malloc(sizeof(char *) * (words + 1));
+	if (split != NULL)
+	{
+		for (i = 0; i <= len(str) && words; i++)
+		{
+			if ((str[i] != ' ') && (str[i] != '\0'))
+				size++;
+			else if (((str[i] == ' ') || (str[i] == '\0')) && i && (str[i - 1] != ' '))
+			{
+				split[j] = (char *)malloc(sizeof(char) * size + 1);
+				if (split[j] != NULL)
+				{
+					while (temp < size)
+					{
+						split[j][temp] = str[(i - size) + temp];
+						temp++;
+					}
+					split[j][temp] = '\0';
+					size = temp = 0;
+					j++;
+				}
+				else
+				{
+					while (j-- >= 0)
+						free(split[j]);
+					free(split);
+					return (NULL);
+				}
+			}
+		}
+		split[words] = NULL;
+		return (split);
+	}
+	else
+		return (NULL);
 }
