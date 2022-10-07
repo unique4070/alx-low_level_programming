@@ -1,0 +1,1 @@
+learning funxtions and all
